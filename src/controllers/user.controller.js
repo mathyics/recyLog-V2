@@ -46,13 +46,13 @@ export const updateProfile = asyncHandler(async (req, res) => {
   if(username) updates.username = username
   if(email) updates.email = email
   
-  // Handle password update if provided
+
   if(password) {
     const bcrypt = await import('bcryptjs')
     updates.password = await bcrypt.hash(password, 10)
   }
 
-  // Handle avatar upload if file is provided
+ 
   if(req.file?.path){
     const uploaded = await uploadOnCloudinary(req.file.path)
     if(uploaded?.url){
@@ -69,11 +69,11 @@ export const logoutUser = asyncHandler(async (req, res) => {
 })
 
 export const getLeaderboard = asyncHandler(async (req, res) => {
-  // Get top users by points, sorted in descending order
+ 
   const users = await User.find({})
     .select('username points totalItemsRecycled co2Saved')
     .sort({ points: -1 })
-    .limit(20) // Limit to top 20 users
+    .limit(20) 
   
   return res.status(200).json(
     new ApiResponse(200, { users }, 'Leaderboard retrieved successfully')

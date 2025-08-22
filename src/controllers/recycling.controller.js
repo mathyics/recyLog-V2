@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/user.model.js";
 
-// CO2 savings per item type (in kg)
+
 const CO2_SAVINGS = {
     plastic: 0.5,
     glass: 0.3,
@@ -11,7 +11,7 @@ const CO2_SAVINGS = {
     metal: 0.8
 };
 
-// Points per item
+
 const POINTS_PER_ITEM = 10;
 
 const logRecycling = asyncHandler(async (req, res) => {
@@ -30,11 +30,11 @@ const logRecycling = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Quantity must be a positive integer");
     }
 
-    // Calculate CO2 saved and points earned
+  
     const co2Saved = CO2_SAVINGS[item_type] * quantity;
     const pointsEarned = POINTS_PER_ITEM * quantity;
 
-    // Update user stats
+
     const updatedUser = await User.findByIdAndUpdate(
         userId,
         {
